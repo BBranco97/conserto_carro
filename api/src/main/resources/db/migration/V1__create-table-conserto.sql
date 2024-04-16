@@ -1,10 +1,10 @@
 CREATE TABLE conserto (
     id BIGINT NOT NULL AUTO_INCREMENT,
     data_entrada VARCHAR(12) NOT NULL,
-    data_saida VARCHAR(12),
+    data_saida VARCHAR(12) NOT NULL,
 
     nome VARCHAR(100) NOT NULL,
-    anos_experiencia INT NOT NULL,
+    anos_experiencia INT,
 
     marca VARCHAR(50) NOT NULL,
     modelo VARCHAR(50) NOT NULL,
