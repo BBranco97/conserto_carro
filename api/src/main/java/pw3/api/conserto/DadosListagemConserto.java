@@ -4,6 +4,7 @@ import pw3.api.mecanico.Mecanico;
 import pw3.api.veiculo.Veiculo;
 
 public record DadosListagemConserto(
+        Long id,
         String dataEntrada,
         String dataSaida,
         String nomeMecanico,
@@ -11,7 +12,8 @@ public record DadosListagemConserto(
         String modeloVeiculo) {
 
         public DadosListagemConserto (Conserto conserto) {
-                this(conserto.getDataEntrada(),
+                this(   conserto.getId(),
+                        conserto.getDataEntrada(),
                         conserto.getDataSaida(),
                         conserto.getMecanicoResponsavel().getNome(),
                         conserto.getVeiculo().getMarca(),
