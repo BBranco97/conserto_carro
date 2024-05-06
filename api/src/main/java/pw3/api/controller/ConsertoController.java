@@ -33,35 +33,19 @@ public class ConsertoController {
 
     @GetMapping("listar")
     public ResponseEntity listar(Pageable paginacao) {
-        if (paginacao.getPageNumber() < 0) {
-            return ResponseEntity.notFound().build();
-        }
-        Page<Conserto> consertos = repository.findAll(paginacao); // nao consegui colocoar findAllByAtivoTrue com paginacao
+        Page<Conserto> consertos = repository.findAll(paginacao);
         Page<DadosListagemConserto> dadosListagemConserto = consertos.map(DadosListagemConserto::new);
         return ResponseEntity.ok(dadosListagemConserto);
     }
 
 
     @GetMapping("algunsdados")
-    public ResponseEntity listarAlgunsDados() {
-        List<Conserto> conserto = repository.findAllByAtivoTrue();
-        if (conserto.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        List<DadosListagemConserto> dadosListagemConserto = conserto.stream().map(DadosListagemConserto::new).toList();
-        return ResponseEntity.ok(dadosListagemConserto);
+    public ResponseEntity listarAlgunsDados( Pageable paginacao ) {
+
+        Page p = repository.findAllByAtivoTrue(paginacao).map(DadosListagemConserto::new);
+        return ResponseEntity.ok(p);
     }
 
-
-//    @GetMapping ("listar")
-//    public Page<Conserto> listar(Pageable paginacao) {
-//        return repository.findAll(paginacao);
-//    }
-//
-//    @GetMapping("algunsdados")
-//    public List<DadosListagemConserto> listarAlgunsDados() {
-//        return repository.findAllByAtivoTrue().stream().map(DadosListagemConserto::new).toList();
-//    }
 
     @GetMapping("/{id}")
     public ResponseEntity getConsertoById(@PathVariable Long id) {
